@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1794765251 source:e:\projects\c++\unicompass\main.cpp
+	<iostream>
+	<string>
+	"Utilities/Utilities.h"
+
+1794764818 e:\projects\c++\unicompass\utilities\utilities.h
+	<string>
+
+1794765182 source:e:\projects\c++\unicompass\utilities\utilities.cpp
+	"Utilities.h"
+	<iostream>
+
