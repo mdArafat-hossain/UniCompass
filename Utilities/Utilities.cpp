@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-string int_input()
+int int_validation()
 {
     long long int number;
 
@@ -17,7 +17,7 @@ string int_input()
         cin >> number;
     }
 
-    return to_string(number);
+    return number;
 }
 
 string lowercase_convert(string name)
@@ -31,4 +31,8 @@ string lowercase_convert(string name)
     }
 
     return name;
+}
+void information()
+{
+    //hello
 }

@@ -3,7 +3,8 @@
 #include <string>
 using namespace std;
 
-string int_input();
+int int_validation();
 string lowercase_convert(string name);
+void information();
 
 #endif // UTILITIES_H_INCLUDED

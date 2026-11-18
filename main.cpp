@@ -1,14 +1,15 @@
 #include <iostream>
 #include <string>
 #include "Utilities/Utilities.h"
+#include "Algorithms/Algorithms.h"
 using namespace std;
 
 class UniCompass
 {
 public:
-    string budget;
-    string in_district; string district;
-    string in_university_type, university_type;
+    int budget;
+    string district;
+    string university_type;
 
     void introduction()
     {
@@ -20,16 +21,29 @@ public:
         cout << "Please tell us your preference" << endl;
 
         cout << "Budget : ";
-        budget = int_input(); //check if the input is only int or not and convert it into string
+        budget = int_validation(); //check if the input is only int or not
 
         cout << "District : ";
         cin.ignore(); //ignore /n from previous cin
-        getline(cin, in_district);
-        district = lowercase_convert(in_district); //convert all uppercase to lowercase
+        getline(cin, district);
+        district = lowercase_convert(district); //convert all uppercase to lowercase
 
         cout << "University type (press 0 to see all types of universities): ";
-        getline(cin, in_university_type);
-        university_type = lowercase_convert(in_university_type);
+        getline(cin,university_type);
+        university_type = lowercase_convert(university_type);
+    }
+
+    void filter_algorithm()
+    {
+
+        int count = filter(budget, district, university_type);
+
+        cout << "Matching universities: " << count << endl;
+
+        if (count > 0)
+        {
+            mergeSort();
+        }
     }
 };
 
@@ -38,6 +52,7 @@ int main()
     UniCompass obj;
     obj.introduction();
     obj.input();
+    obj.filter_algorithm();
 
     return 0;
 }

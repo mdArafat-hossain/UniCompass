@@ -1,13 +1,26 @@
 # depslib dependency file v1.0
-1794765251 source:e:\projects\c++\unicompass\main.cpp
+1795020171 source:e:\projects\c++\unicompass\main.cpp
 	<iostream>
 	<string>
 	"Utilities/Utilities.h"
+	"Algorithms/Algorithms.h"
 
-1794764818 e:\projects\c++\unicompass\utilities\utilities.h
+1795016169 e:\projects\c++\unicompass\utilities\utilities.h
 	<string>
 
-1794765182 source:e:\projects\c++\unicompass\utilities\utilities.cpp
+1795016169 source:e:\projects\c++\unicompass\utilities\utilities.cpp
 	"Utilities.h"
 	<iostream>
+
+1795019869 e:\projects\c++\unicompass\algorithms\algorithms.h
+	<string>
+
+1795020125 source:e:\projects\c++\unicompass\algorithms\algorithms.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	<sstream>
+	<ctime>
+	"Algorithms.h"
 
