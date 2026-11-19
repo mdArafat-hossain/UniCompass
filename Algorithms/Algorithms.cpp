@@ -69,7 +69,7 @@ int filter(int tuition_fee, string district, string university_type)
     return count;
 }
 
-void mergeSort()
+void mergeSort(int Sort)
 {
     struct University
     {
@@ -91,7 +91,7 @@ void mergeSort()
 
     if (!file)
     {
-        cout << "Filtered file not found!";
+        cout << "Error! Try Again";
         return;
     }
 
@@ -123,7 +123,7 @@ void mergeSort()
             u.ranking = stoi(ranking);
             u.semesterMonth = stoi(semester);
         }
-        catch (...) //Catches any exception if something goes wrong
+        catch (...)
         {
             continue;
         }
@@ -164,25 +164,29 @@ void mergeSort()
 
             while (i < mid && j < right)
             {
-                if (universities[i].monthsLeft <
-                        universities[j].monthsLeft)
+                bool takeLeft;
+
+                if (Sort == 1)
                 {
-                    temp[k++] = universities[i++];
-                }
-                else if (universities[i].monthsLeft >
-                         universities[j].monthsLeft)
-                {
-                    temp[k++] = universities[j++];
-                }
-                else if (universities[i].ranking <=
-                         universities[j].ranking)
-                {
-                    temp[k++] = universities[i++];
+                    // Sort by overall ranking
+                    if (universities[i].ranking != universities[j].ranking)
+                        takeLeft = universities[i].ranking < universities[j].ranking;
+                    else
+                        takeLeft = universities[i].fee <= universities[j].fee;
                 }
                 else
                 {
-                    temp[k++] = universities[j++];
+                    // Sort by lowest tuition fee
+                    if (universities[i].fee != universities[j].fee)
+                        takeLeft = universities[i].fee < universities[j].fee;
+                    else
+                        takeLeft = universities[i].ranking <= universities[j].ranking;
                 }
+
+                if (takeLeft)
+                    temp[k++] = universities[i++];
+                else
+                    temp[k++] = universities[j++];
             }
 
             while (i < mid)
@@ -211,7 +215,7 @@ void mergeSort()
         cout << "Tuition Fee: " << u.fee << endl;
         cout << "Scholarship: " << u.scholarship << endl;
         cout << "Ranking: " << u.ranking << endl;
-        cout << "Emai: " << u.email << endl;
+        cout << "Email: " << u.email << endl;
         cout << "Phone Number: " << u.number << endl;
         cout << "Official Website: " << u.website << endl;
 
@@ -228,15 +232,50 @@ void mergeSort()
         cout << "-----------------------------\n";
     }
 
-    // NEAREST SEMESTER
-    cout << "\n========== SEMESTER SUMMARY ==========\n";
+    // UNIVERSITY SUMMARY
+    int lowestFee = universities[0].fee;
+    int highestFee = universities[0].fee;
 
-    cout << "Nearest upcoming semester: "
-         << universities[0].name << endl;
+    int bestRanking = universities[0].ranking;
 
-    cout << "Time remaining: "
-         << universities[0].monthsLeft
-         << " months" << endl;
+    int publicCount = 0;
+    int privateCount = 0;
 
+    for (int i = 0; i < n; i++)
+    {
+        if (universities[i].fee < lowestFee)
+            lowestFee = universities[i].fee;
+
+        if (universities[i].fee > highestFee)
+            highestFee = universities[i].fee;
+
+        if (universities[i].ranking < bestRanking)
+            bestRanking = universities[i].ranking;
+
+        if (universities[i].type == "public")
+            publicCount++;
+
+        else if (universities[i].type == "private")
+            privateCount++;
+    }
+
+    cout << "\n========== UNIVERSITY SUMMARY ==========\n";
+
+    cout << "Total Matching Universities: " << n << endl;
+
+    cout << "Lowest Tuition Fee: " << lowestFee << endl;
+
+    cout << "Highest Tuition Fee: " << highestFee << endl;
+
+    cout << "Best Overall Ranking: " << bestRanking << endl;
+
+    cout << "Public Universities: " << publicCount << endl;
+
+    cout << "Private Universities: " << privateCount << endl;
+
+    cout << "========================================\n";
+
+    // Delete temporary file
     remove("Filtered.csv");
 }
+

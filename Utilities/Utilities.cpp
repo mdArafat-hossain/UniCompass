@@ -2,19 +2,36 @@
 #include <iostream>
 using namespace std;
 
-int int_validation()
+int int_validation(int condition)
 {
     long long int number;
 
-    cin >> number;
-
-    while (cin.fail() || number <= 0)
+    if (condition == 1)
     {
-        cin.clear();
-        cin.ignore(1000, '\n');
-
-        cout << "Invalid input! Enter a valid budget (Without coma) : ";
         cin >> number;
+
+        while (cin.fail() || number <= 0)
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Invalid input! Enter a valid budget : ";
+            cin >> number;
+        }
+    }
+    else if (condition == 2)
+    {
+
+        cin >> number;
+
+        while (cin.fail() || number <= 0 || number > 2)
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Invalid input! Enter a valid choice : ";
+            cin >> number;
+        }
     }
 
     return number;

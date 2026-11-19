@@ -21,7 +21,7 @@ public:
         cout << "Please tell us your preference" << endl;
 
         cout << "Budget : ";
-        budget = int_validation(); //check if the input is only int or not
+        budget = int_validation(1); //check if the input is only int or not
 
         cout << "District : ";
         cin.ignore(); //ignore /n from previous cin
@@ -37,12 +37,22 @@ public:
     {
 
         int count = filter(budget, district, university_type);
+        int Sort = 0;
 
+        if (count > 0)
+        {
+            cout << "Sort Universities by ,\n"
+            << "1) Overall Ranking \n"
+            << "2) Lowest Tuition Fee\n";
+
+            Sort = int_validation(2);
+
+        }
         cout << "Matching universities: " << count << endl;
 
         if (count > 0)
         {
-            mergeSort();
+            mergeSort(Sort);
         }
     }
 };

@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-int int_validation();
+int int_validation(int condition);
 string lowercase_convert(string name);
 void information();
 
