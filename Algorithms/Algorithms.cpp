@@ -13,6 +13,7 @@ int filter(int tuition_fee, string district, string university_type)
 
     int count = 0;
     string name, dist, type, course, fee, scholarship, ranking, time, line;
+    string email, number, website;
 
     ifstream file("University_Information.csv");
     ofstream temp("Filtered.csv");
@@ -31,27 +32,35 @@ int filter(int tuition_fee, string district, string university_type)
         getline(file, fee, ',');
         getline(file, scholarship, ',');
         getline(file, ranking, ',');
-        getline(file, time);
+        getline(file, time, ',');
+        getline(file, email, ',');
+        getline(file, number, ',');
+        getline(file, website);
 
-        if (district == dist && university_type == type)
+        if (district == dist)
         {
-            int Fee = stoi(fee);
-
-            if (Fee <= tuition_fee)
+            if (university_type == type || university_type == "all")
             {
-               temp << name << ","
-                     << dist << ","
-                     << type << ","
-                     << course << ","
-                     << fee << ","
-                     << scholarship << ","
-                     << ranking << ","
-                     << time << endl;
-                count++;
+                int Fee = stoi(fee);
+
+                if (Fee <= tuition_fee)
+                {
+                    temp << name << ","
+                         << dist << ","
+                         << type << ","
+                         << course << ","
+                         << fee << ","
+                         << scholarship << ","
+                         << ranking << ","
+                         << time << ","
+                         << email << ","
+                         << number << ","
+                         << website << endl;
+                    count++;
+                }
+
             }
-
         }
-
 
     }
 
@@ -65,6 +74,7 @@ void mergeSort()
     struct University
     {
         string name, district, type, course, scholarship;
+        string email, number, website;
         int fee, ranking, semesterMonth, monthsLeft;
     };
 
@@ -102,7 +112,10 @@ void mergeSort()
         getline(ss, fee, ',');
         getline(ss, u.scholarship, ',');
         getline(ss, ranking, ',');
-        getline(ss, semester);
+        getline(ss, semester, ',');
+        getline(ss, u.email, ',');
+        getline(ss, u.number, ',');
+        getline(ss, u.website);
 
         try
         {
@@ -152,7 +165,7 @@ void mergeSort()
             while (i < mid && j < right)
             {
                 if (universities[i].monthsLeft <
-                    universities[j].monthsLeft)
+                        universities[j].monthsLeft)
                 {
                     temp[k++] = universities[i++];
                 }
@@ -198,6 +211,9 @@ void mergeSort()
         cout << "Tuition Fee: " << u.fee << endl;
         cout << "Scholarship: " << u.scholarship << endl;
         cout << "Ranking: " << u.ranking << endl;
+        cout << "Emai: " << u.email << endl;
+        cout << "Phone Number: " << u.number << endl;
+        cout << "Official Website: " << u.website << endl;
 
         if (u.monthsLeft == 0)
         {
