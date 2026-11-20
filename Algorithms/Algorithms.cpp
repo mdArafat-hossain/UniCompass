@@ -74,17 +74,11 @@ void mergeSort(int Sort)
     struct University
     {
         string name, district, type, course, scholarship;
-        string email, number, website;
-        int fee, ranking, semesterMonth, monthsLeft;
+        string email, number, website, academicCalendar;
+        int fee, ranking;
     };
 
     vector<University> universities;
-
-    // Get current month
-    time_t now = time(0);
-    tm *currentTime = localtime(&now);
-
-    int currentMonth = currentTime->tm_mon + 1;
 
     // Read filtered data
     ifstream file("Filtered.csv");
@@ -103,7 +97,7 @@ void mergeSort(int Sort)
 
         University u;
 
-        string fee, ranking, semester;
+        string fee, ranking;
 
         getline(ss, u.name, ',');
         getline(ss, u.district, ',');
@@ -112,7 +106,7 @@ void mergeSort(int Sort)
         getline(ss, fee, ',');
         getline(ss, u.scholarship, ',');
         getline(ss, ranking, ',');
-        getline(ss, semester, ',');
+        getline(ss, u.academicCalendar, ',');
         getline(ss, u.email, ',');
         getline(ss, u.number, ',');
         getline(ss, u.website);
@@ -121,19 +115,11 @@ void mergeSort(int Sort)
         {
             u.fee = stoi(fee);
             u.ranking = stoi(ranking);
-            u.semesterMonth = stoi(semester);
         }
         catch (...)
         {
             continue;
         }
-
-        if (u.semesterMonth < 1 || u.semesterMonth > 12)
-            continue;
-
-        // Calculate months remaining
-        u.monthsLeft =
-            (u.semesterMonth - currentMonth + 12) % 12;
 
         universities.push_back(u);
     }
@@ -145,6 +131,7 @@ void mergeSort(int Sort)
     if (n == 0)
     {
         cout << "No universities found!";
+        remove("Filtered.csv");
         return;
     }
 
@@ -196,7 +183,7 @@ void mergeSort(int Sort)
                 temp[k++] = universities[j++];
         }
 
-        universities = temp;
+        universities.swap(temp);
     }
 
     // DISPLAY RESULTS
@@ -212,22 +199,13 @@ void mergeSort(int Sort)
         cout << "District: " << u.district << endl;
         cout << "University Type: " << u.type << endl;
         cout << "Available Course: " << u.course << endl;
-        cout << "Tuition Fee: " << u.fee << endl;
+        cout << "Average Tuition Fee: " << u.fee << endl;
         cout << "Scholarship: " << u.scholarship << endl;
         cout << "Ranking: " << u.ranking << endl;
+        cout << "Academic Calendar System: " << u.academicCalendar << endl;
         cout << "Email: " << u.email << endl;
         cout << "Phone Number: " << u.number << endl;
         cout << "Official Website: " << u.website << endl;
-
-        if (u.monthsLeft == 0)
-        {
-            cout << "Semester starts this month!\n";
-        }
-        else
-        {
-            cout << "Semester starts in "
-                 << u.monthsLeft << " months.\n";
-        }
 
         cout << "-----------------------------\n";
     }
@@ -262,15 +240,10 @@ void mergeSort(int Sort)
     cout << "\n========== UNIVERSITY SUMMARY ==========\n";
 
     cout << "Total Matching Universities: " << n << endl;
-
     cout << "Lowest Tuition Fee: " << lowestFee << endl;
-
     cout << "Highest Tuition Fee: " << highestFee << endl;
-
     cout << "Best Overall Ranking: " << bestRanking << endl;
-
     cout << "Public Universities: " << publicCount << endl;
-
     cout << "Private Universities: " << privateCount << endl;
 
     cout << "========================================\n";
